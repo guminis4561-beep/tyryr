@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .bg-vibrant-gradient {
+    background: linear-gradient(180deg, #1E293B 0%, #0F172A 50%, #020617 100%);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}

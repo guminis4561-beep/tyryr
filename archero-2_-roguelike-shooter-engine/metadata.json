@@ -1,0 +1,6 @@
+{
+  "name": "Archero 2: Roguelike Shooter Engine",
+  "description": "Full-stack mobile top-down roguelike shooter engine with stop-to-shoot combat, skill drafting, gear blacksmithing, talent trees, dungeons, and backend API.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
