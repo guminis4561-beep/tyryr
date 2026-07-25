@@ -316,8 +316,7 @@ app.post("/api/monetization/validate-receipt", (req, res) => {
 // Serve Vite or Static files
 function startServer() {
   if (process.env.NODE_ENV !== "production") {
-    // async vite logic in production only
-    return;
+    // only load vite in dev
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
