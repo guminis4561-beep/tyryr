@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-let createViteServer: any;
 
 const app = express();
 const PORT = 3000;
@@ -314,20 +313,28 @@ app.post("/api/monetization/validate-receipt", (req, res) => {
 });
 
 // Serve Vite or Static files
-function startServer() {
-  if (process.env.NODE_ENV !== "production") {
-    // only load vite in dev
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+if (process.env.NODE_ENV !== "production") {
+  // Dev mode with Vite
+  (async () => {
+    const { createServer } = await import("vite");
+    const vite = await createServer({
+      server: { middlewareMode: true },
+      appType: "spa",
     });
-  }
+    app.use(vite.middlewares);
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Archero 2 Game Engine & API Server running on http://0.0.0.0:${PORT}`);
+    });
+  })();
+} else {
+  // Production mode with static files
+  const distPath = path.join(process.cwd(), "dist");
+  app.use(express.static(distPath));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Archero 2 Game Engine & API Server running on http://0.0.0.0:${PORT}`);
   });
 }
-
-startServer();
