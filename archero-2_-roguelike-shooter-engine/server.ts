@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
+let createViteServer: any;
 
 const app = express();
 const PORT = 3000;
@@ -316,6 +316,7 @@ app.post("/api/monetization/validate-receipt", (req, res) => {
 // Serve Vite or Static files
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    createViteServer = (await import("vite")).createServer;
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
