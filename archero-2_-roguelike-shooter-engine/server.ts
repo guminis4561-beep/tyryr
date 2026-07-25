@@ -314,14 +314,10 @@ app.post("/api/monetization/validate-receipt", (req, res) => {
 });
 
 // Serve Vite or Static files
-async function startServer() {
+function startServer() {
   if (process.env.NODE_ENV !== "production") {
-    createViteServer = (await import("vite")).createServer;
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
+    // async vite logic in production only
+    return;
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
@@ -335,7 +331,4 @@ async function startServer() {
   });
 }
 
-startServer().catch(err => {
-  console.error("Failed to start server:", err);
-  process.exit(1);
-});
+startServer();
